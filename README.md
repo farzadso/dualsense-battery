@@ -81,3 +81,7 @@ Tests cover explicit selection, identical names, disconnections, lowest-battery 
 Source files are in `Sources/`; the app bundle metadata is in `Resources/Info.plist`. Build products and compiler caches stay in the ignored `build/` directory.
 
 This is an independent project, not affiliated with Sony or Apple.
+
+## License
+
+[MIT](LICENSE) © 2026 Farzad Soltani.
