@@ -15,10 +15,26 @@ A small native macOS menu-bar app for checking controller battery levels. Built 
 - Refresh Now is disabled when no controllers are connected.
 - Runs without a Dock icon; can be added to macOS login items.
 
+## Download
+
+[Download the latest release](https://github.com/farzadso/dualsense-battery/releases/latest) — no build tools required.
+
+1. Download the **macOS universal ZIP** from the release's Assets section.
+2. Unzip it and drag **DualSense Battery.app** into Applications.
+3. Open the app; its controller icon appears in the menu bar.
+
+The download contains both Apple silicon and Intel binaries and requires macOS 13 or later. Runtime testing has been performed on Apple silicon; the Intel binary has been built and inspected but not tested on Intel hardware.
+
+### First launch
+
+The app is ad-hoc signed, but is **not Developer ID signed or notarized by Apple**. macOS may block it on first launch. If you trust this download, try opening it, then go to **System Settings → Privacy & Security → Open Anyway** and confirm. See [Apple's instructions for opening an unnotarized app](https://support.apple.com/en-us/102445).
+
+Each release includes `SHA256SUMS.txt` for checking the downloaded archive's integrity.
+
 ## Requirements
 
 - macOS 13 or later.
-- Xcode Command Line Tools or Xcode with the Swift compiler and macOS SDK.
+- For building from source only: Xcode Command Line Tools or Xcode with the Swift compiler and macOS SDK.
 - A connected controller supported by Apple's GameController framework.
 
 Live battery reporting has been checked with a PS5 DualSense over Bluetooth on Apple silicon. Other controllers depend on the battery information macOS exposes and have not been hardware-tested. Multi-controller selection is covered by simulated tests.
@@ -32,9 +48,9 @@ cd dualsense-battery
 open "build/DualSense Battery.app"
 ```
 
-The build targets your current Mac's architecture and creates an ad-hoc signed app. It is not Developer ID signed or notarized.
+The build targets your current Mac's architecture; pass `--universal` to build both Apple silicon and Intel binaries. It creates an ad-hoc signed app. It is not Developer ID signed or notarized.
 
-## Install
+## Install from a local build
 
 Quit any running copy using the menu-bar app's Quit command, then:
 
@@ -79,6 +95,14 @@ The app makes no network requests and does not require a GitHub account. Setting
 Tests cover explicit selection, identical names, disconnections, lowest-battery changes, charging controllers, unknown levels, an empty list, and a zero-percent battery.
 
 Source files are in `Sources/`; the app bundle metadata is in `Resources/Info.plist`. Build products and compiler caches stay in the ignored `build/` directory.
+
+To prepare a universal release archive and SHA-256 checksum locally:
+
+```sh
+./scripts/release.sh
+```
+
+The script runs the tests, builds both architectures, signs the bundle, and writes the ZIP and `SHA256SUMS.txt` into `build/release/`. It does not publish anything.
 
 This is an independent project, not affiliated with Sony or Apple.
 
