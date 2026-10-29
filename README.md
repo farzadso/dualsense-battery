@@ -2,6 +2,8 @@
 
 A small native macOS menu-bar app for checking controller battery levels. Built with Swift, AppKit, and Apple's GameController framework, with no third-party dependencies.
 
+![DualSense Battery menu showing a connected controller at 55%, controller selection, and refresh settings](docs/images/menu.png)
+
 ## Features
 
 - Battery percentage beside a controller icon in the menu bar.
